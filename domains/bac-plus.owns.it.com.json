@@ -1,0 +1,16 @@
+{
+  "description": "موقع مساعدة طلاب البكالوريا - ملخصات، تمارين، ونصائح للنجاح",
+  "domain": "is-not-a.dev",
+  "subdomain": "bac-plus",
+
+  "owner": {
+    "repo": "https://github.com/bac-plus/register.git",
+    "email": "abdouhatam5@gmail.com"
+  },
+
+  "record": {
+    "CNAME": "bac-plus.github.io"
+  },
+
+  "proxied": false
+}
