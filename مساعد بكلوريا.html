@@ -1,0 +1,2965 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مساعد البكالوريا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* أنماط CSS العامة */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success-color: #4cc9f0;
+            --warning-color: #f72585;
+            --danger-color: #e63946;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --font-family: 'Cairo', sans-serif;
+            --bg-image: none;
+        }
+
+        .dark-mode {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #f0f0f0;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-family);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            line-height: 1.6;
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* أنماط الشريط الجانبي */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .logo {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--success-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0 15px;
+        }
+
+        .nav-links li {
+            margin-bottom: 10px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links i {
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* أنماط المحتوى الرئيسي */
+        .main-content {
+            flex: 1;
+            margin-right: 250px;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle, .notifications-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .theme-toggle:hover, .notifications-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            background-color: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* أنماط البطاقات */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        /* أنماط عداد البكالوريا */
+        .countdown-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .countdown-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .countdown-card .card-title {
+            color: white;
+            z-index: 1;
+            position: relative;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .countdown-unit {
+            text-align: center;
+            flex: 1;
+        }
+
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* أنماط المهام */
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .task-item:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .task-checkbox {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            flex-wrap: wrap;
+        }
+
+        .task-subject {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .task-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: var(--transition);
+            padding: 5px;
+        }
+
+        .task-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success-color);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* أنماط الأزرار */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* أنماط النماذج */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        /* أنماط النوافذ المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            padding: 5px;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* أنماط الإشعارات */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 3000;
+        }
+
+        .toast {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 350px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast.success .toast-icon {
+            color: var(--success-color);
+        }
+
+        .toast.info .toast-icon {
+            color: var(--primary-color);
+        }
+
+        .toast.warning .toast-icon {
+            color: var(--warning-color);
+        }
+
+        .toast.error .toast-icon {
+            color: var(--danger-color);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .toast-message {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+            padding: 5px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* أنماط الصفحات */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* أنماط المؤقت */
+        .timer {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 20px 0;
+            color: var(--primary-color);
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .preset-times {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .preset-btn {
+            padding: 8px 15px;
+            background-color: rgba(67, 97, 238, 0.1);
+            border: none;
+            border-radius: var(--border-radius);
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .preset-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* أنماط التقويم */
+        .calendar {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .calendar-nav-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background-color: #ddd;
+        }
+
+        .calendar-day-header {
+            background-color: var(--card-bg);
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .calendar-day {
+            background-color: var(--card-bg);
+            padding: 10px;
+            min-height: 80px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .calendar-day.other-month {
+            color: #aaa;
+        }
+
+        .calendar-day.today {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .day-number {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .day-events {
+            font-size: 0.7rem;
+        }
+
+        .event-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin: 1px;
+        }
+
+        .event-dot.completed {
+            background-color: var(--success-color);
+        }
+
+        .event-dot.pending {
+            background-color: var(--warning-color);
+        }
+
+        /* أنماط التحليلات */
+        .chart-container {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .chart {
+            height: 300px;
+            background-color: rgba(0, 0, 0, 0.02);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .chart-bar {
+            width: 40px;
+            background-color: var(--primary-color);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: height 0.5s ease;
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        /* أنماط الإنجازات */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .achievement-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .achievement-card.locked {
+            opacity: 0.5;
+        }
+
+        .achievement-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        .achievement-card.unlocked .achievement-icon {
+            color: var(--success-color);
+        }
+
+        .achievement-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .achievement-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .achievement-progress {
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .achievement-progress-fill {
+            height: 100%;
+            background-color: var(--success-color);
+            transition: width 0.5s ease;
+        }
+
+        /* أنماط الوسائط المتجاوبة */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                overflow: visible;
+            }
+            
+            .logo h1 {
+                display: none;
+            }
+            
+            .nav-links a span {
+                display: none;
+            }
+            
+            .nav-links a {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .nav-links i {
+                margin-left: 0;
+            }
+            
+            .main-content {
+                margin-right: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .countdown-timer {
+                flex-wrap: wrap;
+            }
+            
+            .countdown-unit {
+                flex: 0 0 50%;
+                margin-bottom: 10px;
+            }
+            
+            .timer-display {
+                font-size: 3rem;
+            }
+            
+            .timer-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .achievements-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 15px;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .user-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- الشريط الجانبي -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>مساعد <span>البكالوريا</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active" data-page="dashboard"><i class="fas fa-home"></i> <span>الرئيسية</span></a></li>
+                <li><a href="#" data-page="daily-tasks"><i class="fas fa-tasks"></i> <span>مهام يومية</span></a></li>
+                <li><a href="#" data-page="monthly-goals"><i class="fas fa-bullseye"></i> <span>أهداف شهرية</span></a></li>
+                <li><a href="#" data-page="calendar"><i class="fas fa-calendar-alt"></i> <span>رزنامة</span></a></li>
+                <li><a href="#" data-page="timer"><i class="fas fa-clock"></i> <span>مؤقت الدراسة</span></a></li>
+                <li><a href="#" data-page="notifications"><i class="fas fa-bell"></i> <span>الإشعارات</span></a></li>
+                <li><a href="#" data-page="assistant"><i class="fas fa-robot"></i> <span>المساعد</span></a></li>
+                <li><a href="#" data-page="analytics"><i class="fas fa-chart-bar"></i> <span>التقارير</span></a></li>
+                <li><a href="#" data-page="profile"><i class="fas fa-user"></i> <span>الملف الشخصي</span></a></li>
+                <li><a href="#" data-page="settings"><i class="fas fa-cog"></i> <span>الإعدادات</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- المحتوى الرئيسي -->
+        <main class="main-content">
+            <!-- رأس الصفحة -->
+            <header class="header">
+                <h1 class="page-title" id="page-title">لوحة التحكم</h1>
+                <div class="user-actions">
+                    <button class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="notifications-btn" id="notifications-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">0</span>
+                    </button>
+                    <div class="user-profile" id="user-profile">
+                        <div class="user-avatar">ط</div>
+                        <span>طالب</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- محتوى الصفحات -->
+            <div id="page-content">
+                <!-- الصفحة الرئيسية -->
+                <div class="page active" id="dashboard">
+                    <div class="cards-grid">
+                        <!-- بطاقة عداد البكالوريا -->
+                        <div class="card countdown-card" id="countdown-card">
+                            <div class="card-header">
+                                <h2 class="card-title">متبقي على البكالوريا</h2>
+                                <i class="card-icon fas fa-hourglass-half"></i>
+                            </div>
+                            <div class="countdown-timer" id="countdown-timer">
+                                <div class="countdown-unit">
+                                    <span class="countdown-value" id="days">0</span>
+                                    <span class="countdown-label">أيام</span>
+                                </div>
+                                <div class="countdown-unit">
+                                    <span class="countdown-value" id="hours">0</span>
+                                    <span class="countdown-label">ساعات</span>
+                                </div>
+                                <div class="countdown-unit">
+                                    <span class="countdown-value" id="minutes">0</span>
+                                    <span class="countdown-label">دقائق</span>
+                                </div>
+                                <div class="countdown-unit">
+                                    <span class="countdown-value" id="seconds">0</span>
+                                    <span class="countdown-label">ثواني</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- بطاقة رسائل ملاحظة -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">ملاحظات اليوم</h2>
+                                <i class="card-icon fas fa-sticky-note"></i>
+                            </div>
+                            <div id="dynamic-notes">
+                                <p>مرحباً! ابدأ بتحديد تاريخ البكالوريا في الإعدادات وإضافة مهامك الأولى.</p>
+                            </div>
+                        </div>
+
+                        <!-- بطاقة نقاط التركيز -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">نقاط التركيز</h2>
+                                <i class="card-icon fas fa-star"></i>
+                            </div>
+                            <div class="focus-points">
+                                <h3 id="focus-points">0 نقطة</h3>
+                                <p>ابدأ بإنهاء المهام لكسب النقاط</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- قائمة مهام اليوم -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">مهام اليوم</h2>
+                            <button class="btn btn-primary" id="add-task-btn">
+                                <i class="fas fa-plus"></i> إضافة مهمة
+                            </button>
+                        </div>
+                        <div class="task-list" id="today-tasks">
+                            <p style="text-align: center; padding: 20px; color: #666;">لا توجد مهام لهذا اليوم. أضف مهمة جديدة لتبدأ!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صفحة المهام اليومية -->
+                <div class="page" id="daily-tasks">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">المهام اليومية</h2>
+                            <button class="btn btn-primary" id="add-daily-task-btn">
+                                <i class="fas fa-plus"></i> إضافة مهمة
+                            </button>
+                            <button class="btn btn-outline" id="view-completed-tasks">
+                                <i class="fas fa-history"></i> المهام المكتملة
+                            </button>
+                        </div>
+                        <div class="task-list" id="daily-tasks-list">
+                            <p style="text-align: center; padding: 20px; color: #666;">لا توجد مهام يومية. أضف مهمة جديدة لتبدأ!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صفحة الأهداف الشهرية -->
+                <div class="page" id="monthly-goals">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">الأهداف الشهرية</h2>
+                            <button class="btn btn-primary" id="add-monthly-goal-btn">
+                                <i class="fas fa-plus"></i> إضافة هدف
+                            </button>
+                        </div>
+                        <div id="monthly-goals-content">
+                            <p style="text-align: center; padding: 20px; color: #666;">لا توجد أهداف شهرية. أضف هدفاً جديداً لتبدأ!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صفحة الرزنامة -->
+                <div class="page" id="calendar">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">رزنامة الدراسة</h2>
+                        </div>
+                        <div id="calendar-content">
+                            <!-- سيتم إنشاء التقويم ديناميكياً -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صفحة المؤقت -->
+                <div class="page" id="timer">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">مؤقت الدراسة</h2>
+                        </div>
+                        <div class="timer">
+                            <div class="timer-display" id="timer-display">25:00</div>
+                            <div class="timer-controls">
+                                <button class="btn btn-primary" id="start-timer">بدء</button>
+                                <button class="btn btn-warning" id="pause-timer">إيقاف</button>
+                                <button class="btn btn-danger" id="reset-timer">إعادة تعيين</button>
+                            </div>
+                            <div class="preset-times">
+                                <button class="preset-btn" data-minutes="25">25 دقيقة</button>
+                                <button class="preset-btn" data-minutes="50">50 دقيقة</button>
+                                <button class="preset-btn" data-minutes="90">90 دقيقة</button>
+                            </div>
+                            <div style="margin-top: 30px;">
+                                <h3>تخصيص الوقت</h3>
+                                <div style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
+                                    <input type="number" id="custom-minutes" min="1" max="180" placeholder="دقائق" style="width: 100px; padding: 8px; border-radius: var(--border-radius); border: 1px solid #ddd;">
+                                    <button class="btn btn-outline" id="set-custom-time">تطبيق</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صفحة الإشعارات -->
+                <div class="page" id="notifications">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">الإشعارات</h2>
+                            <button class="btn btn-outline" id="clear-notifications">مسح الكل</button>
+                        </div>
+                        <div id="notifications-list">
+                            <p style="text-align: center; padding: 20px; color: #666;">لا توجد إشعارات حالياً.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صفحة المساعد -->
+                <div class="page" id="assistant">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">المساعد الذكي</h2>
+                        </div>
+                        <div id="assistant-content">
+                            <div id="assistant-messages">
+                                <div class="assistant-message">
+                                    <p>مرحباً! أنا مساعدك الذكي للبكالوريا. سأقدم لك نصائح وإرشادات لتحسين أدائك الدراسي.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صفحة التقارير -->
+                <div class="page" id="analytics">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">تقارير الأداء اليومية</h2>
+                        </div>
+                        <div id="analytics-content">
+                            <!-- سيتم إنشاء الرسوم البيانية ديناميكياً -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صفحة الملف الشخصي -->
+                <div class="page" id="profile">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">الملف الشخصي والإنجازات</h2>
+                        </div>
+                        <div id="profile-content">
+                            <div style="text-align: center; padding: 20px;">
+                                <div class="user-avatar" style="width: 80px; height: 80px; margin: 0 auto 15px; font-size: 1.5rem;">ط</div>
+                                <h3 id="profile-user-name">طالب</h3>
+                                <p style="color: #666; margin-bottom: 20px;">طالب بكالوريا</p>
+                                <h3 style="margin-bottom: 20px; color: var(--primary-color);">الإنجازات</h3>
+                                <div class="achievements-grid" id="achievements-container">
+                                    <!-- سيتم إنشاء الإنجازات ديناميكياً -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صفحة الإعدادات -->
+                <div class="page" id="settings">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">الإعدادات</h2>
+                        </div>
+                        <div id="settings-content">
+                            <div style="padding: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="user-name">اسم المستخدم</label>
+                                    <input type="text" class="form-control" id="user-name" value="طالب">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="exam-date-setting">تاريخ البكالوريا</label>
+                                    <input type="date" class="form-control" id="exam-date-setting">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">مدة ظهور الإشعارات</label>
+                                    <select class="form-select" id="notification-duration">
+                                        <option value="3">3 ثوان</option>
+                                        <option value="5" selected>5 ثوان</option>
+                                        <option value="7">7 ثوان</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">نوع الخط</label>
+                                    <select class="form-select" id="font-family">
+                                        <option value="'Cairo', sans-serif">Cairo</option>
+                                        <option value="'Arial', sans-serif">Arial</option>
+                                        <option value="'Tahoma', sans-serif">Tahoma</option>
+                                        <option value="'Georgia', serif">Georgia</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">حجم الخط</label>
+                                    <select class="form-select" id="font-size">
+                                        <option value="14px">صغير</option>
+                                        <option value="16px" selected>متوسط</option>
+                                        <option value="18px">كبير</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">لون السمة</label>
+                                    <input type="color" class="form-control" id="theme-color" value="#4361ee">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">خلفية الصفحة</label>
+                                    <input type="file" class="form-control" id="background-image" accept="image/*">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" id="save-settings">حفظ الإعدادات</button>
+                                    <button class="btn btn-danger" id="reset-data" style="margin-right: 10px;">مسح جميع البيانات</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- النوافذ المنبثقة -->
+    <!-- نافذة إضافة مهمة -->
+    <div class="modal" id="add-task-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">إضافة مهمة جديدة</h3>
+                <button class="modal-close" id="close-task-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="task-form">
+                    <div class="form-group">
+                        <label class="form-label" for="task-title">عنوان المهمة</label>
+                        <input type="text" class="form-control" id="task-title" placeholder="أدخل عنوان المهمة" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="task-subject">المادة</label>
+                        <select class="form-select" id="task-subject" required>
+                            <option value="">اختر المادة</option>
+                            <option value="رياضيات">رياضيات</option>
+                            <option value="عربية">عربية</option>
+                            <option value="فرنسية">فرنسية</option>
+                            <option value="إنجليزية">إنجليزية</option>
+                            <option value="اجتماعيات">اجتماعيات</option>
+                            <option value="فيزياء">فيزياء</option>
+                            <option value="علوم">علوم</option>
+                            <option value="فلسفة">فلسفة</option>
+                            <option value="إسلامية">إسلامية</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="task-type">نوع المهمة</label>
+                        <select class="form-select" id="task-type" required>
+                            <option value="">اختر النوع</option>
+                            <option value="درس">درس</option>
+                            <option value="تمرين">تمرين</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="task-duration">المدة (دقائق)</label>
+                        <input type="number" class="form-control" id="task-duration" min="1" placeholder="أدخل المدة بالدقائق" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="task-priority">الأولوية</label>
+                        <select class="form-select" id="task-priority" required>
+                            <option value="">اختر الأولوية</option>
+                            <option value="عالية">عالية</option>
+                            <option value="متوسطة">متوسطة</option>
+                            <option value="منخفضة">منخفضة</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-task">إلغاء</button>
+                <button class="btn btn-primary" id="save-task">حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة هدف شهري -->
+    <div class="modal" id="add-monthly-goal-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">إضافة هدف شهري</h3>
+                <button class="modal-close" id="close-monthly-goal-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="monthly-goal-form">
+                    <div class="form-group">
+                        <label class="form-label" for="goal-subject">المادة</label>
+                        <select class="form-select" id="goal-subject" required>
+                            <option value="">اختر المادة</option>
+                            <option value="رياضيات">رياضيات</option>
+                            <option value="عربية">عربية</option>
+                            <option value="فرنسية">فرنسية</option>
+                            <option value="إنجليزية">إنجليزية</option>
+                            <option value="اجتماعيات">اجتماعيات</option>
+                            <option value="فيزياء">فيزياء</option>
+                            <option value="علوم">علوم</option>
+                            <option value="فلسفة">فلسفة</option>
+                            <option value="إسلامية">إسلامية</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="goal-hours">عدد الساعات المستهدفة</label>
+                        <input type="number" class="form-control" id="goal-hours" min="1" placeholder="أدخل عدد الساعات" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="goal-tasks">عدد الدروس/التمارين المستهدف</label>
+                        <input type="number" class="form-control" id="goal-tasks" min="1" placeholder="أدخل عدد المهام" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-monthly-goal">إلغاء</button>
+                <button class="btn btn-primary" id="save-monthly-goal">حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة المهام المكتملة -->
+    <div class="modal" id="completed-tasks-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">المهام المكتملة</h3>
+                <button class="modal-close" id="close-completed-tasks-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="completed-tasks-list">
+                    <!-- سيتم ملؤها ديناميكياً -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="close-completed-tasks">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- حاوية الإشعارات -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script>
+        // بيانات التطبيق - تبدأ من الصفر
+        const appData = {
+            examDate: null,
+            tasks: [],
+            completedTasks: [],
+            monthlyGoals: [],
+            focusPoints: 0,
+            notifications: [],
+            currentPage: 'dashboard',
+            timer: {
+                minutes: 25,
+                seconds: 0,
+                isRunning: false,
+                interval: null
+            },
+            userName: 'طالب',
+            settings: {
+                notificationDuration: 5,
+                fontFamily: "'Cairo', sans-serif",
+                fontSize: "16px",
+                themeColor: "#4361ee",
+                bgImage: null
+            },
+            achievements: [
+                { id: 1, title: "بداية قوية", description: "إكمال أول مهمة", icon: "fa-trophy", unlocked: false, progress: 0, maxProgress: 1, points: 10 },
+                { id: 2, title: "مستمر 3 أيام", description: "إنجاز مهام 3 أيام متواصلة", icon: "fa-fire", unlocked: false, progress: 0, maxProgress: 3, points: 20 },
+                { id: 3, title: "أساسي الرياضيات", description: "إكمال 5 دروس رياضيات", icon: "fa-square-root-alt", unlocked: false, progress: 0, maxProgress: 5, points: 30 },
+                { id: 4, title: "ملك الرياضيات", description: "إكمال 10 دروس رياضيات", icon: "fa-crown", unlocked: false, progress: 0, maxProgress: 10, points: 50 },
+                { id: 5, title: "متقدم في الفيزياء", description: "حل 5 تمرينات فيزياء بدرجات ≥12/20", icon: "fa-atom", unlocked: false, progress: 0, maxProgress: 5, points: 40 },
+                { id: 6, title: "سيد التنظيم", description: "أسبوع كامل بدون مهمة متأخرة", icon: "fa-calendar-check", unlocked: false, progress: 0, maxProgress: 7, points: 60 },
+                { id: 7, title: "محارب المراجعات", description: "20 جلسة مراجعة", icon: "fa-book", unlocked: false, progress: 0, maxProgress: 20, points: 70 },
+                { id: 8, title: "مؤشر الاستمرارية", description: "30 يوم نشاط", icon: "fa-calendar-alt", unlocked: false, progress: 0, maxProgress: 30, points: 100 },
+                { id: 9, title: "بطل التركيز", description: "4 جلسات تركيز متتالية", icon: "fa-brain", unlocked: false, progress: 0, maxProgress: 4, points: 35 },
+                { id: 10, title: "متفوق اللغة", description: "إكمال 8 دروس لغة عربية", icon: "fa-language", unlocked: false, progress: 0, maxProgress: 8, points: 45 },
+                { id: 11, title: "خبير الإنجليزية", description: "إكمال 8 دروس لغة إنجليزية", icon: "fa-globe", unlocked: false, progress: 0, maxProgress: 8, points: 45 },
+                { id: 12, title: "نابغة العلوم", description: "إكمال 7 دروس علوم", icon: "fa-flask", unlocked: false, progress: 0, maxProgress: 7, points: 40 },
+                { id: 13, title: "فيلسوف المستقبل", description: "إكمال 6 دروس فلسفة", icon: "fa-user-graduate", unlocked: false, progress: 0, maxProgress: 6, points: 35 },
+                { id: 14, title: "مثابر الأسبوع", description: "إكمال 10 مهام في أسبوع واحد", icon: "fa-medal", unlocked: false, progress: 0, maxProgress: 10, points: 50 },
+                { id: 15, title: "ساعي المعرفة", description: "دراسة 15 ساعة في أسبوع", icon: "fa-clock", unlocked: false, progress: 0, maxProgress: 15, points: 55 },
+                { id: 16, title: "منظم الوقت", description: "استخدام المؤقت 10 مرات", icon: "fa-stopwatch", unlocked: false, progress: 0, maxProgress: 10, points: 30 },
+                { id: 17, title: "هادف النجاح", description: "تحقيق 5 أهداف شهرية", icon: "fa-bullseye", unlocked: false, progress: 0, maxProgress: 5, points: 60 },
+                { id: 18, title: "مجتهد الشهر", description: "إكمال 40 مهمة في شهر", icon: "fa-star", unlocked: false, progress: 0, maxProgress: 40, points: 80 },
+                { id: 19, title: "بطل التحدي", description: "كسب 500 نقطة تركيز", icon: "fa-gem", unlocked: false, progress: 0, maxProgress: 500, points: 100 },
+                { id: 20, title: "أسطورة البكالوريا", description: "إكمال جميع الإنجازات", icon: "fa-award", unlocked: false, progress: 0, maxProgress: 20, points: 200 }
+            ],
+            studyHistory: [],
+            notes: [],
+            activeTaskTimer: null,
+            assistantInterval: null,
+            calendar: {
+                currentMonth: new Date().getMonth(),
+                currentYear: new Date().getFullYear()
+            }
+        };
+
+        // تهيئة التطبيق
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحميل البيانات المحفوظة
+            loadData();
+            
+            // التحقق من المهام القديمة ونقلها للمهام المكتملة
+            checkOldTasks();
+            
+            // تحديث العداد
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // إعداد المؤقت
+            setupTimer();
+            
+            // إعداد التقويم
+            setupCalendar();
+            
+            // إعداد الرسوم البيانية
+            setupCharts();
+            
+            // إعداد الإنجازات
+            setupAchievements();
+            
+            // إعداد المساعد
+            setupAssistant();
+            
+            // إضافة مستمعي الأحداث
+            setupEventListeners();
+            
+            // تحديث واجهة المستخدم
+            updateUI();
+            
+            // عرض إشعار ترحيبي
+            if (appData.tasks.length === 0) {
+                showToast('مرحباً! ابدأ بتحديد تاريخ البكالوريا في الإعدادات وإضافة مهامك الأولى.', 'info');
+            }
+            
+            // بدء المساعد الذكي
+            startAssistant();
+        });
+
+        // تحميل البيانات المحفوظة
+        function loadData() {
+            const savedData = localStorage.getItem('bacAssistantData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                Object.assign(appData, data);
+            }
+        }
+
+        // حفظ البيانات
+        function saveData() {
+            localStorage.setItem('bacAssistantData', JSON.stringify(appData));
+        }
+
+        // التحقق من المهام القديمة
+        function checkOldTasks() {
+            const today = new Date().toDateString();
+            const tasksToMove = [];
+            
+            appData.tasks.forEach(task => {
+                const taskDate = new Date(task.createdAt).toDateString();
+                if (taskDate !== today && task.completed) {
+                    tasksToMove.push(task.id);
+                }
+            });
+            
+            // نقل المهام المكتملة القديمة
+            tasksToMove.forEach(taskId => {
+                const taskIndex = appData.tasks.findIndex(t => t.id === taskId);
+                if (taskIndex !== -1) {
+                    const task = appData.tasks[taskIndex];
+                    appData.completedTasks.push(task);
+                    appData.tasks.splice(taskIndex, 1);
+                }
+            });
+            
+            if (tasksToMove.length > 0) {
+                saveData();
+            }
+        }
+
+        // تحديث واجهة المستخدم
+        function updateUI() {
+            // تحديث العداد
+            updateCountdown();
+            
+            // تحديث المهام
+            renderTasks();
+            
+            // تحديث الأهداف الشهرية
+            renderMonthlyGoals();
+            
+            // تحديث نقاط التركيز
+            document.getElementById('focus-points').textContent = `${appData.focusPoints} نقطة`;
+            
+            // تحديث الإشعارات
+            updateNotificationsBadge();
+            renderNotifications();
+            
+            // تحديث اسم المستخدم
+            document.querySelector('.user-avatar').textContent = appData.userName.charAt(0);
+            document.querySelector('.user-profile span').textContent = appData.userName;
+            document.getElementById('user-name').value = appData.userName;
+            document.getElementById('profile-user-name').textContent = appData.userName;
+            
+            // تحديث تاريخ البكالوريا في الإعدادات إذا كان محدداً
+            if (appData.examDate) {
+                document.getElementById('exam-date-setting').value = appData.examDate;
+            }
+            
+            // تحديث الإعدادات
+            document.getElementById('notification-duration').value = appData.settings.notificationDuration;
+            document.getElementById('font-family').value = appData.settings.fontFamily;
+            document.getElementById('font-size').value = appData.settings.fontSize;
+            document.getElementById('theme-color').value = appData.settings.themeColor;
+            
+            // تطبيق الإعدادات
+            applySettings();
+            
+            // تحديث الإنجازات
+            renderAchievements();
+            
+            // تحديث الملاحظات
+            updateNotes();
+        }
+
+        // تطبيق الإعدادات
+        function applySettings() {
+            // تطبيق نوع الخط
+            document.documentElement.style.setProperty('--font-family', appData.settings.fontFamily);
+            
+            // تطبيق حجم الخط
+            document.body.style.fontSize = appData.settings.fontSize;
+            
+            // تطبيق لون السمة
+            document.documentElement.style.setProperty('--primary-color', appData.settings.themeColor);
+            
+            // تطبيق الخلفية
+            if (appData.settings.bgImage) {
+                document.documentElement.style.setProperty('--bg-image', `url(${appData.settings.bgImage})`);
+            } else {
+                document.documentElement.style.setProperty('--bg-image', 'none');
+            }
+        }
+
+        // تحديث عداد البكالوريا
+        function updateCountdown() {
+            if (!appData.examDate) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                return;
+            }
+
+            const now = new Date();
+            const examDate = new Date(appData.examDate);
+            const timeRemaining = examDate - now;
+
+            if (timeRemaining <= 0) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                return;
+            }
+
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        // عرض المهام
+        function renderTasks() {
+            const tasksContainer = document.getElementById('today-tasks');
+            const dailyTasksContainer = document.getElementById('daily-tasks-list');
+            
+            // تحديث المهام في الصفحة الرئيسية
+            if (appData.tasks.length === 0) {
+                tasksContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">لا توجد مهام لهذا اليوم. أضف مهمة جديدة لتبدأ!</p>';
+            } else {
+                tasksContainer.innerHTML = '';
+                appData.tasks.forEach(task => {
+                    tasksContainer.appendChild(createTaskElement(task));
+                });
+            }
+            
+            // تحديث المهام في صفحة المهام اليومية
+            if (appData.tasks.length === 0) {
+                dailyTasksContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">لا توجد مهام يومية. أضف مهمة جديدة لتبدأ!</p>';
+            } else {
+                dailyTasksContainer.innerHTML = '';
+                appData.tasks.forEach(task => {
+                    dailyTasksContainer.appendChild(createTaskElement(task));
+                });
+            }
+        }
+
+        // إنشاء عنصر مهمة
+        function createTaskElement(task) {
+            const taskElement = document.createElement('div');
+            taskElement.className = 'task-item';
+            
+            // إضافة فئة للمهام قيد التنفيذ
+            if (task.isActive) {
+                taskElement.classList.add('active-task');
+                taskElement.style.backgroundColor = 'rgba(76, 201, 240, 0.1)';
+            }
+            
+            taskElement.innerHTML = `
+                <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} data-id="${task.id}">
+                <div class="task-content">
+                    <div class="task-title">${task.title}</div>
+                    <div class="task-meta">
+                        <span class="task-subject">${task.subject}</span>
+                        <span>${task.type}</span>
+                        <span>${task.duration} دقيقة</span>
+                        <span>${task.priority}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${task.progress}%"></div>
+                    </div>
+                    ${task.isActive ? '<div style="margin-top: 5px; font-size: 0.8rem; color: var(--success-color);">جاري التنفيذ...</div>' : ''}
+                </div>
+                <div class="task-actions">
+                    <button class="task-btn start-task" data-id="${task.id}">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="task-btn delete-task" data-id="${task.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            
+            // إضافة مستمعي الأحداث
+            const checkbox = taskElement.querySelector('.task-checkbox');
+            checkbox.addEventListener('change', function() {
+                toggleTaskCompletion(task.id);
+            });
+            
+            const startBtn = taskElement.querySelector('.start-task');
+            startBtn.addEventListener('click', function() {
+                startTaskTimer(task.id);
+            });
+            
+            const deleteBtn = taskElement.querySelector('.delete-task');
+            deleteBtn.addEventListener('click', function() {
+                deleteTask(task.id);
+            });
+            
+            return taskElement;
+        }
+
+        // تبديل حالة إكمال المهمة
+        function toggleTaskCompletion(taskId) {
+            const task = appData.tasks.find(t => t.id === taskId);
+            if (task) {
+                // منع مضاعفة النقاط
+                if (!task.completed) {
+                    task.completed = true;
+                    task.progress = 100;
+                    
+                    // منح نقاط التركيز
+                    if (task.type === 'درس') {
+                        appData.focusPoints += 10;
+                    } else if (task.type === 'تمرين') {
+                        appData.focusPoints += 15;
+                    }
+                    
+                    showToast(`أحسنت! أكملت مهمة "${task.title}"`, 'success');
+                    
+                    // إضافة إشعار
+                    addNotification(`أكملت مهمة: ${task.title}`, 'success');
+                    
+                    // تحديث الإنجازات
+                    updateAchievements();
+                    
+                    // تحديث الأهداف الشهرية
+                    updateMonthlyGoalsProgress();
+                } else {
+                    task.completed = false;
+                    task.progress = 0;
+                }
+                
+                renderTasks();
+                document.getElementById('focus-points').textContent = `${appData.focusPoints} نقطة`;
+                saveData();
+            }
+        }
+
+        // بدء مؤقت المهمة
+        function startTaskTimer(taskId) {
+            const task = appData.tasks.find(t => t.id === taskId);
+            if (task) {
+                // إيقاف أي مهمة نشطة حالياً
+                if (appData.activeTaskTimer) {
+                    clearInterval(appData.activeTaskTimer);
+                    const activeTask = appData.tasks.find(t => t.isActive);
+                    if (activeTask) {
+                        activeTask.isActive = false;
+                    }
+                }
+                
+                // تعيين المهمة الحالية كنشطة
+                task.isActive = true;
+                task.progress = 0;
+                
+                // حساب الوقت لكل 1% من التقدم
+                const timePerPercent = (task.duration * 60 * 1000) / 100;
+                
+                // بدء المؤقت
+                appData.activeTaskTimer = setInterval(() => {
+                    task.progress += 1;
+                    
+                    if (task.progress >= 100) {
+                        task.progress = 100;
+                        task.completed = true;
+                        task.isActive = false;
+                        clearInterval(appData.activeTaskTimer);
+                        appData.activeTaskTimer = null;
+                        
+                        // منح نقاط التركيز (فقط إذا لم تكن مكتملة مسبقاً)
+                        if (!task.pointsAwarded) {
+                            if (task.type === 'درس') {
+                                appData.focusPoints += 10;
+                            } else if (task.type === 'تمرين') {
+                                appData.focusPoints += 15;
+                            }
+                            task.pointsAwarded = true;
+                            
+                            showToast(`أحسنت! أكملت مهمة "${task.title}"`, 'success');
+                            addNotification(`أكملت مهمة: ${task.title}`, 'success');
+                            
+                            // تحديث الإنجازات
+                            updateAchievements();
+                            
+                            // تحديث الأهداف الشهرية
+                            updateMonthlyGoalsProgress();
+                        }
+                    }
+                    
+                    renderTasks();
+                    document.getElementById('focus-points').textContent = `${appData.focusPoints} نقطة`;
+                    saveData();
+                }, timePerPercent);
+                
+                showToast(`بدأت جلسة دراسة لـ "${task.title}"`, 'info');
+                renderTasks();
+            }
+        }
+
+        // حذف المهمة
+        function deleteTask(taskId) {
+            // إيقاف المؤقت إذا كانت المهمة نشطة
+            const task = appData.tasks.find(t => t.id === taskId);
+            if (task && task.isActive) {
+                clearInterval(appData.activeTaskTimer);
+                appData.activeTaskTimer = null;
+            }
+            
+            appData.tasks = appData.tasks.filter(t => t.id !== taskId);
+            renderTasks();
+            showToast('تم حذف المهمة', 'warning');
+            saveData();
+        }
+
+        // إضافة مهمة جديدة
+        function addTask(taskData) {
+            const newTask = {
+                id: appData.tasks.length > 0 ? Math.max(...appData.tasks.map(t => t.id)) + 1 : 1,
+                title: taskData.title,
+                subject: taskData.subject,
+                type: taskData.type,
+                duration: taskData.duration,
+                priority: taskData.priority,
+                completed: false,
+                progress: 0,
+                isActive: false,
+                pointsAwarded: false,
+                createdAt: new Date().toISOString()
+            };
+            
+            appData.tasks.push(newTask);
+            renderTasks();
+            showToast('تم إضافة المهمة الجديدة', 'success');
+            addNotification(`تمت إضافة مهمة جديدة: ${taskData.title}`, 'info');
+            
+            // تحديث الإنجازات
+            updateAchievements();
+            
+            saveData();
+        }
+
+        // عرض الأهداف الشهرية
+        function renderMonthlyGoals() {
+            const container = document.getElementById('monthly-goals-content');
+            
+            if (appData.monthlyGoals.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">لا توجد أهداف شهرية. أضف هدفاً جديداً لتبدأ!</p>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            appData.monthlyGoals.forEach(goal => {
+                const goalElement = document.createElement('div');
+                goalElement.className = 'task-item';
+                
+                // حساب التقدم
+                const completedTasks = appData.tasks.filter(task => 
+                    task.subject === goal.subject && task.completed
+                ).length;
+                
+                const progressPercent = Math.min(100, (completedTasks / goal.tasks) * 100);
+                const hoursProgress = Math.min(100, (completedTasks * 0.5) / goal.hours * 100); // تقديري
+                
+                goalElement.innerHTML = `
+                    <div class="task-content">
+                        <div class="task-title">${goal.subject}</div>
+                        <div class="task-meta">
+                            <span>الهدف: ${goal.tasks} مهمة</span>
+                            <span>المكتمل: ${completedTasks}</span>
+                            <span>الساعات: ${goal.hours} ساعة</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progressPercent}%"></div>
+                        </div>
+                        <div style="margin-top: 5px; font-size: 0.8rem; color: #666;">
+                            التقدم: ${progressPercent.toFixed(1)}% - ${completedTasks}/${goal.tasks} مهمة
+                        </div>
+                    </div>
+                    <div class="task-actions">
+                        <button class="task-btn delete-goal" data-id="${goal.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(goalElement);
+                
+                // إضافة مستمع حدث للحذف
+                const deleteBtn = goalElement.querySelector('.delete-goal');
+                deleteBtn.addEventListener('click', function() {
+                    deleteMonthlyGoal(goal.id);
+                });
+            });
+        }
+
+        // تحديث تقدم الأهداف الشهرية
+        function updateMonthlyGoalsProgress() {
+            // سيتم استدعاء هذه الدالة عند إكمال المهام
+            renderMonthlyGoals();
+        }
+
+        // إضافة هدف شهري جديد
+        function addMonthlyGoal(goalData) {
+            const newGoal = {
+                id: appData.monthlyGoals.length > 0 ? Math.max(...appData.monthlyGoals.map(g => g.id)) + 1 : 1,
+                subject: goalData.subject,
+                hours: goalData.hours,
+                tasks: goalData.tasks,
+                createdAt: new Date().toISOString()
+            };
+            
+            appData.monthlyGoals.push(newGoal);
+            renderMonthlyGoals();
+            showToast('تم إضافة الهدف الشهري الجديد', 'success');
+            saveData();
+        }
+
+        // حذف هدف شهري
+        function deleteMonthlyGoal(goalId) {
+            appData.monthlyGoals = appData.monthlyGoals.filter(g => g.id !== goalId);
+            renderMonthlyGoals();
+            showToast('تم حذف الهدف الشهري', 'warning');
+            saveData();
+        }
+
+        // إعداد التقويم
+        function setupCalendar() {
+            const container = document.getElementById('calendar-content');
+            const today = new Date();
+            const currentMonth = appData.calendar.currentMonth;
+            const currentYear = appData.calendar.currentYear;
+            
+            // أسماء الأشهر
+            const monthNames = [
+                "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
+                "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+            ];
+            
+            // أسماء الأيام
+            const dayNames = ["أحد", "اثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت"];
+            
+            let calendarHTML = `
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <button class="calendar-nav-btn" id="prev-month"><i class="fas fa-chevron-right"></i></button>
+                        <h3>${monthNames[currentMonth]} ${currentYear}</h3>
+                        <button class="calendar-nav-btn" id="next-month"><i class="fas fa-chevron-left"></i></button>
+                    </div>
+                    <div class="calendar-grid">
+            `;
+            
+            // رؤوس الأيام
+            dayNames.forEach(day => {
+                calendarHTML += `<div class="calendar-day-header">${day}</div>`;
+            });
+            
+            // الأيام
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            
+            // الأيام من الشهر السابق
+            for (let i = 0; i < firstDay; i++) {
+                calendarHTML += `<div class="calendar-day other-month"></div>`;
+            }
+            
+            // أيام الشهر الحالي
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayTasks = appData.tasks.filter(task => 
+                    task.createdAt && task.createdAt.startsWith(dateStr)
+                );
+                
+                const completedTasks = dayTasks.filter(task => task.completed).length;
+                const totalTasks = dayTasks.length;
+                
+                let eventDots = '';
+                if (completedTasks > 0) {
+                    eventDots += '<span class="event-dot completed"></span>';
+                }
+                if (totalTasks > completedTasks) {
+                    eventDots += '<span class="event-dot pending"></span>';
+                }
+                
+                const isToday = day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
+                
+                calendarHTML += `
+                    <div class="calendar-day ${isToday ? 'today' : ''}">
+                        <div class="day-number">${day}</div>
+                        <div class="day-events">${eventDots}</div>
+                    </div>
+                `;
+            }
+            
+            calendarHTML += `
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = calendarHTML;
+            
+            // إضافة مستمعي الأحداث لأزرار التنقل
+            document.getElementById('prev-month').addEventListener('click', function() {
+                if (appData.calendar.currentMonth === 0) {
+                    appData.calendar.currentMonth = 11;
+                    appData.calendar.currentYear--;
+                } else {
+                    appData.calendar.currentMonth--;
+                }
+                setupCalendar();
+            });
+            
+            document.getElementById('next-month').addEventListener('click', function() {
+                if (appData.calendar.currentMonth === 11) {
+                    appData.calendar.currentMonth = 0;
+                    appData.calendar.currentYear++;
+                } else {
+                    appData.calendar.currentMonth++;
+                }
+                setupCalendar();
+            });
+        }
+
+        // إعداد الرسوم البيانية
+        function setupCharts() {
+            const container = document.getElementById('analytics-content');
+            
+            // جمع المواد التي درسها الطالب
+            const subjectsStudied = [...new Set(appData.tasks.map(task => task.subject))];
+            
+            // حساب عدد الساعات لكل مادة
+            const studyHours = subjectsStudied.map(subject => {
+                const tasksForSubject = appData.tasks.filter(task => task.subject === subject);
+                const totalMinutes = tasksForSubject.reduce((sum, task) => sum + task.duration, 0);
+                return Math.round(totalMinutes / 60 * 10) / 10; // تحويل الدقائق إلى ساعات
+            });
+            
+            const maxHours = studyHours.length > 0 ? Math.max(...studyHours) : 1;
+            
+            let chartsHTML = `
+                <div class="chart-container">
+                    <div class="chart-title">ساعات الدراسة اليومية لكل مادة</div>
+                    <div class="chart" id="study-hours-chart">
+            `;
+            
+            if (subjectsStudied.length === 0) {
+                chartsHTML += `<p style="text-align: center; padding: 40px; color: #666;">لا توجد بيانات دراسة اليوم</p>`;
+            } else {
+                subjectsStudied.forEach((subject, index) => {
+                    const heightPercent = (studyHours[index] / maxHours) * 100;
+                    chartsHTML += `
+                        <div class="chart-bar" style="height: ${heightPercent}%">
+                            <div class="chart-label">${subject}</div>
+                        </div>
+                    `;
+                });
+            }
+            
+            chartsHTML += `
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = chartsHTML;
+        }
+
+        // إعداد الإنجازات
+        function setupAchievements() {
+            renderAchievements();
+        }
+
+        // عرض الإنجازات
+        function renderAchievements() {
+            const container = document.getElementById('achievements-container');
+            container.innerHTML = '';
+            
+            appData.achievements.forEach(achievement => {
+                const progressPercent = (achievement.progress / achievement.maxProgress) * 100;
+                const isUnlocked = achievement.unlocked;
+                
+                const achievementElement = document.createElement('div');
+                achievementElement.className = `achievement-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+                achievementElement.innerHTML = `
+                    <i class="fas ${achievement.icon} achievement-icon"></i>
+                    <div class="achievement-title">${achievement.title}</div>
+                    <div class="achievement-desc">${achievement.description}</div>
+                    <div class="achievement-progress">
+                        <div class="achievement-progress-fill" style="width: ${progressPercent}%"></div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.8rem;">
+                        ${achievement.progress}/${achievement.maxProgress} - ${achievement.points} نقطة
+                    </div>
+                `;
+                
+                container.appendChild(achievementElement);
+            });
+        }
+
+        // تحديث الإنجازات
+        function updateAchievements() {
+            // إنجاز 1: بداية قوية (إكمال أول مهمة)
+            if (appData.tasks.some(task => task.completed)) {
+                const achievement = appData.achievements.find(a => a.id === 1);
+                if (achievement && !achievement.unlocked) {
+                    achievement.progress = 1;
+                    achievement.unlocked = true;
+                    appData.focusPoints += achievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${achievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 2: مستمر 3 أيام (إنجاز مهام 3 أيام متواصلة)
+            const achievement2 = appData.achievements.find(a => a.id === 2);
+            if (achievement2) {
+                // منطق مبسط لتتبع الأيام المتتالية
+                const completedTasksCount = appData.tasks.filter(task => task.completed).length;
+                achievement2.progress = Math.min(achievement2.maxProgress, Math.floor(completedTasksCount / 2));
+                if (achievement2.progress >= achievement2.maxProgress && !achievement2.unlocked) {
+                    achievement2.unlocked = true;
+                    appData.focusPoints += achievement2.points;
+                    showToast(`مبارك! فزت بإنجاز "${achievement2.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 3: أساسي الرياضيات (إكمال 5 دروس رياضيات)
+            const mathLessons = appData.tasks.filter(task => 
+                task.subject === "رياضيات" && task.type === "درس" && task.completed
+            ).length;
+            
+            const mathAchievement = appData.achievements.find(a => a.id === 3);
+            if (mathAchievement) {
+                mathAchievement.progress = mathLessons;
+                if (mathLessons >= mathAchievement.maxProgress && !mathAchievement.unlocked) {
+                    mathAchievement.unlocked = true;
+                    appData.focusPoints += mathAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${mathAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 4: ملك الرياضيات (إكمال 10 دروس رياضيات)
+            const mathAchievement2 = appData.achievements.find(a => a.id === 4);
+            if (mathAchievement2) {
+                mathAchievement2.progress = mathLessons;
+                if (mathLessons >= mathAchievement2.maxProgress && !mathAchievement2.unlocked) {
+                    mathAchievement2.unlocked = true;
+                    appData.focusPoints += mathAchievement2.points;
+                    showToast(`مبارك! فزت بإنجاز "${mathAchievement2.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 5: متقدم في الفيزياء (حل 5 تمرينات فيزياء)
+            const physicsExercises = appData.tasks.filter(task => 
+                task.subject === "فيزياء" && task.type === "تمرين" && task.completed
+            ).length;
+            
+            const physicsAchievement = appData.achievements.find(a => a.id === 5);
+            if (physicsAchievement) {
+                physicsAchievement.progress = physicsExercises;
+                if (physicsExercises >= physicsAchievement.maxProgress && !physicsAchievement.unlocked) {
+                    physicsAchievement.unlocked = true;
+                    appData.focusPoints += physicsAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${physicsAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 6: سيد التنظيم (أسبوع كامل بدون مهمة متأخرة)
+            const organizationAchievement = appData.achievements.find(a => a.id === 6);
+            if (organizationAchievement) {
+                // منطق مبسط - يعتبر أن المستخدم نظّم وقته إذا أكمل 7 مهام في الأسبوع
+                const weeklyTasks = appData.tasks.filter(task => {
+                    const taskDate = new Date(task.createdAt);
+                    const today = new Date();
+                    const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+                    return taskDate >= weekAgo && task.completed;
+                }).length;
+                
+                organizationAchievement.progress = Math.min(weeklyTasks, organizationAchievement.maxProgress);
+                if (weeklyTasks >= organizationAchievement.maxProgress && !organizationAchievement.unlocked) {
+                    organizationAchievement.unlocked = true;
+                    appData.focusPoints += organizationAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${organizationAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 7: محارب المراجعات (20 جلسة مراجعة)
+            const reviewAchievement = appData.achievements.find(a => a.id === 7);
+            if (reviewAchievement) {
+                // كل مهمة مكتملة تعتبر جلسة مراجعة
+                reviewAchievement.progress = Math.min(appData.tasks.filter(task => task.completed).length, reviewAchievement.maxProgress);
+                if (reviewAchievement.progress >= reviewAchievement.maxProgress && !reviewAchievement.unlocked) {
+                    reviewAchievement.unlocked = true;
+                    appData.focusPoints += reviewAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${reviewAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 8: مؤشر الاستمرارية (30 يوم نشاط)
+            const continuityAchievement = appData.achievements.find(a => a.id === 8);
+            if (continuityAchievement) {
+                // منطق مبسط - كل 10 مهام مكتملة تعتبر 10 أيام نشاط
+                continuityAchievement.progress = Math.min(Math.floor(appData.tasks.filter(task => task.completed).length / 3), continuityAchievement.maxProgress);
+                if (continuityAchievement.progress >= continuityAchievement.maxProgress && !continuityAchievement.unlocked) {
+                    continuityAchievement.unlocked = true;
+                    appData.focusPoints += continuityAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${continuityAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 9: بطل التركيز (4 جلسات تركيز متتالية)
+            const focusAchievement = appData.achievements.find(a => a.id === 9);
+            if (focusAchievement) {
+                // منطق مبسط - كل 4 مهام مكتملة تعتبر 4 جلسات تركيز
+                focusAchievement.progress = Math.min(Math.floor(appData.tasks.filter(task => task.completed).length / 4), focusAchievement.maxProgress);
+                if (focusAchievement.progress >= focusAchievement.maxProgress && !focusAchievement.unlocked) {
+                    focusAchievement.unlocked = true;
+                    appData.focusPoints += focusAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${focusAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 10: متفوق اللغة (إكمال 8 دروس لغة عربية)
+            const arabicAchievement = appData.achievements.find(a => a.id === 10);
+            if (arabicAchievement) {
+                const arabicLessons = appData.tasks.filter(task => 
+                    task.subject === "عربية" && task.type === "درس" && task.completed
+                ).length;
+                
+                arabicAchievement.progress = arabicLessons;
+                if (arabicLessons >= arabicAchievement.maxProgress && !arabicAchievement.unlocked) {
+                    arabicAchievement.unlocked = true;
+                    appData.focusPoints += arabicAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${arabicAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 11: خبير الإنجليزية (إكمال 8 دروس لغة إنجليزية)
+            const englishAchievement = appData.achievements.find(a => a.id === 11);
+            if (englishAchievement) {
+                const englishLessons = appData.tasks.filter(task => 
+                    task.subject === "إنجليزية" && task.type === "درس" && task.completed
+                ).length;
+                
+                englishAchievement.progress = englishLessons;
+                if (englishLessons >= englishAchievement.maxProgress && !englishAchievement.unlocked) {
+                    englishAchievement.unlocked = true;
+                    appData.focusPoints += englishAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${englishAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 12: نابغة العلوم (إكمال 7 دروس علوم)
+            const scienceAchievement = appData.achievements.find(a => a.id === 12);
+            if (scienceAchievement) {
+                const scienceLessons = appData.tasks.filter(task => 
+                    task.subject === "علوم" && task.type === "درس" && task.completed
+                ).length;
+                
+                scienceAchievement.progress = scienceLessons;
+                if (scienceLessons >= scienceAchievement.maxProgress && !scienceAchievement.unlocked) {
+                    scienceAchievement.unlocked = true;
+                    appData.focusPoints += scienceAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${scienceAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 13: فيلسوف المستقبل (إكمال 6 دروس فلسفة)
+            const philosophyAchievement = appData.achievements.find(a => a.id === 13);
+            if (philosophyAchievement) {
+                const philosophyLessons = appData.tasks.filter(task => 
+                    task.subject === "فلسفة" && task.type === "درس" && task.completed
+                ).length;
+                
+                philosophyAchievement.progress = philosophyLessons;
+                if (philosophyLessons >= philosophyAchievement.maxProgress && !philosophyAchievement.unlocked) {
+                    philosophyAchievement.unlocked = true;
+                    appData.focusPoints += philosophyAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${philosophyAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 14: مثابر الأسبوع (إكمال 10 مهام في أسبوع واحد)
+            const weeklyAchievement = appData.achievements.find(a => a.id === 14);
+            if (weeklyAchievement) {
+                const weeklyTasks = appData.tasks.filter(task => {
+                    const taskDate = new Date(task.createdAt);
+                    const today = new Date();
+                    const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+                    return taskDate >= weekAgo && task.completed;
+                }).length;
+                
+                weeklyAchievement.progress = Math.min(weeklyTasks, weeklyAchievement.maxProgress);
+                if (weeklyTasks >= weeklyAchievement.maxProgress && !weeklyAchievement.unlocked) {
+                    weeklyAchievement.unlocked = true;
+                    appData.focusPoints += weeklyAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${weeklyAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 15: ساعي المعرفة (دراسة 15 ساعة في أسبوع)
+            const knowledgeAchievement = appData.achievements.find(a => a.id === 15);
+            if (knowledgeAchievement) {
+                // تقديري - كل مهمة مكتملة تعادل 0.5 ساعة دراسة
+                const weeklyStudyHours = appData.tasks.filter(task => {
+                    const taskDate = new Date(task.createdAt);
+                    const today = new Date();
+                    const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+                    return taskDate >= weekAgo && task.completed;
+                }).length * 0.5;
+                
+                knowledgeAchievement.progress = Math.min(weeklyStudyHours, knowledgeAchievement.maxProgress);
+                if (weeklyStudyHours >= knowledgeAchievement.maxProgress && !knowledgeAchievement.unlocked) {
+                    knowledgeAchievement.unlocked = true;
+                    appData.focusPoints += knowledgeAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${knowledgeAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 16: منظم الوقت (استخدام المؤقت 10 مرات)
+            const timerAchievement = appData.achievements.find(a => a.id === 16);
+            if (timerAchievement) {
+                // منطق مبسط لتتبع استخدام المؤقت
+                const timerUsage = Math.floor(appData.tasks.filter(task => task.completed).length / 3);
+                timerAchievement.progress = Math.min(timerUsage, timerAchievement.maxProgress);
+                if (timerUsage >= timerAchievement.maxProgress && !timerAchievement.unlocked) {
+                    timerAchievement.unlocked = true;
+                    appData.focusPoints += timerAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${timerAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 17: هادف النجاح (تحقيق 5 أهداف شهرية)
+            const monthlyGoalsAchievement = appData.achievements.find(a => a.id === 17);
+            if (monthlyGoalsAchievement) {
+                // كل هدف شهري مكتمل
+                monthlyGoalsAchievement.progress = Math.min(appData.monthlyGoals.length, monthlyGoalsAchievement.maxProgress);
+                if (monthlyGoalsAchievement.progress >= monthlyGoalsAchievement.maxProgress && !monthlyGoalsAchievement.unlocked) {
+                    monthlyGoalsAchievement.unlocked = true;
+                    appData.focusPoints += monthlyGoalsAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${monthlyGoalsAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 18: مجتهد الشهر (إكمال 40 مهمة في شهر)
+            const monthlyTasksAchievement = appData.achievements.find(a => a.id === 18);
+            if (monthlyTasksAchievement) {
+                const monthlyTasks = appData.tasks.filter(task => {
+                    const taskDate = new Date(task.createdAt);
+                    const today = new Date();
+                    const monthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+                    return taskDate >= monthAgo && task.completed;
+                }).length;
+                
+                monthlyTasksAchievement.progress = Math.min(monthlyTasks, monthlyTasksAchievement.maxProgress);
+                if (monthlyTasks >= monthlyTasksAchievement.maxProgress && !monthlyTasksAchievement.unlocked) {
+                    monthlyTasksAchievement.unlocked = true;
+                    appData.focusPoints += monthlyTasksAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${monthlyTasksAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 19: بطل التحدي (كسب 500 نقطة تركيز)
+            const pointsAchievement = appData.achievements.find(a => a.id === 19);
+            if (pointsAchievement) {
+                pointsAchievement.progress = Math.min(appData.focusPoints, pointsAchievement.maxProgress);
+                if (appData.focusPoints >= pointsAchievement.maxProgress && !pointsAchievement.unlocked) {
+                    pointsAchievement.unlocked = true;
+                    appData.focusPoints += pointsAchievement.points;
+                    showToast(`مبارك! فزت بإنجاز "${pointsAchievement.title}"`, 'success');
+                }
+            }
+            
+            // إنجاز 20: أسطورة البكالوريا (إكمال جميع الإنجازات)
+            const allAchievements = appData.achievements.find(a => a.id === 20);
+            if (allAchievements) {
+                const unlockedCount = appData.achievements.filter(a => a.unlocked).length;
+                allAchievements.progress = unlockedCount;
+                if (unlockedCount >= allAchievements.maxProgress && !allAchievements.unlocked) {
+                    allAchievements.unlocked = true;
+                    appData.focusPoints += allAchievements.points;
+                    showToast(`مبارك! فزت بإنجاز "${allAchievements.title}"`, 'success');
+                }
+            }
+            
+            renderAchievements();
+            saveData();
+        }
+
+        // إعداد المساعد
+        function setupAssistant() {
+            // لا يوجد شات، فقط إشعارات دورية
+        }
+
+        // بدء المساعد الذكي
+        function startAssistant() {
+            // إرسال رسائل المساعد كل 30 ثانية
+            appData.assistantInterval = setInterval(() => {
+                sendAssistantMessage();
+            }, 30000);
+        }
+
+        // إرسال رسالة المساعد
+        function sendAssistantMessage() {
+            const messagesContainer = document.getElementById('assistant-messages');
+            
+            // اختيار رسالة عشوائية من مجموعة الرسائل المحسنة
+            const messages = [
+                "لا تنسَ مراجعة المواد التي لم تدرسها بعد!",
+                "حاول توزيع وقتك بين المواد المختلفة لتحقيق أفضل النتائج.",
+                "الاستراحات القصيرة بين فترات الدراسة تساعد على تحسين التركيز.",
+                "تذكر أن التنظيم هو مفتاح النجاح في البكالوريا.",
+                "حاول حل تمارين إضافية في المواد التي تجدها صعبة.",
+                "المراجعة المنتظمة تساعد على تثبيت المعلومات في الذاكرة طويلة المدى.",
+                "ابدأ بالمواد الصعبة عندما يكون عقلك في ذروة نشاطه.",
+                "استخدم تقنيات التعلم النشط مثل الخرائط الذهنية والتلخيص.",
+                "لا تهمل الصحة النفسية والجسدية، فهي أساس التركيز والاستيعاب.",
+                "ضع أهدافاً واقعية وقابلة للتحقيق لكل جلسة دراسة.",
+                "استخدم المؤقت لتقسيم وقت الدراسة إلى فترات مركزة.",
+                "راجع ما درسته في اليوم التالي لتعزيز الذاكرة.",
+                "حاول ربط المعلومات الجديدة بمعلومات سابقة لتعزيز الفهم.",
+                "استخدم أساليب متعددة للتعلم: القراءة، الكتابة، الاستماع، التطبيق.",
+                "خصص وقتاً للمراجعة العامة قبل الامتحانات بفترة كافية.",
+                "احصل على قسط كافٍ من النوم لتعزيز الذاكرة والتركيز.",
+                "مارس التمارين الرياضية بانتظام لتحسين الدورة الدموية والتركيز.",
+                "تجنب الملهيات مثل الهاتف والتلفاز أثناء جلسات الدراسة.",
+                "استخدم نظام المكافآت لتحفيز نفسك على إكمال المهام.",
+                "لا تتردد في طلب المساعدة من المعلمين أو الزملاء عند الحاجة."
+            ];
+            
+            // إذا كان هناك مهام غير مكتملة، أضف نصيحة حولها
+            const incompleteTasks = appData.tasks.filter(task => !task.completed);
+            if (incompleteTasks.length > 0) {
+                const randomTask = incompleteTasks[Math.floor(Math.random() * incompleteTasks.length)];
+                messages.push(`لا تنسَ إكمال مهمة "${randomTask.title}" في مادة ${randomTask.subject}. حاول تخصيص وقت محدد لها اليوم.`);
+            }
+            
+            // إذا كان هناك مواد لم يتم دراستها، أضف نصيحة حولها
+            const allSubjects = ["رياضيات", "عربية", "فرنسية", "إنجليزية", "اجتماعيات", "فيزياء", "علوم", "فلسفة", "إسلامية"];
+            const studiedSubjects = [...new Set(appData.tasks.map(task => task.subject))];
+            const unstudiedSubjects = allSubjects.filter(subject => !studiedSubjects.includes(subject));
+            
+            if (unstudiedSubjects.length > 0) {
+                const randomSubject = unstudiedSubjects[Math.floor(Math.random() * unstudiedSubjects.length)];
+                messages.push(`لم تدرس مادة ${randomSubject} بعد. حاول إضافة مهام لهذه المادة في أقرب وقت!`);
+            }
+            
+            // إذا كان هناك أهداف شهرية غير مكتملة، أضف نصيحة حولها
+            if (appData.monthlyGoals.length > 0) {
+                const incompleteGoals = appData.monthlyGoals.filter(goal => {
+                    const completedTasks = appData.tasks.filter(task => 
+                        task.subject === goal.subject && task.completed
+                    ).length;
+                    return completedTasks < goal.tasks;
+                });
+                
+                if (incompleteGoals.length > 0) {
+                    const randomGoal = incompleteGoals[Math.floor(Math.random() * incompleteGoals.length)];
+                    const completedTasks = appData.tasks.filter(task => 
+                        task.subject === randomGoal.subject && task.completed
+                    ).length;
+                    messages.push(`أنت على بعد ${randomGoal.tasks - completedTasks} مهمة من تحقيق هدفك في مادة ${randomGoal.subject}. استمر في العمل الجاد!`);
+                }
+            }
+            
+            // إذا كان الطالب قريباً من موعد البكالوريا، أضف نصائح خاصة
+            if (appData.examDate) {
+                const now = new Date();
+                const examDate = new Date(appData.examDate);
+                const daysRemaining = Math.floor((examDate - now) / (1000 * 60 * 60 * 24));
+                
+                if (daysRemaining < 30) {
+                    messages.push(`تبقى ${daysRemaining} يوم فقط على البكالوريا! ركز على المراجعة العامة وحل النماذج الامتحانية.`);
+                } else if (daysRemaining < 90) {
+                    messages.push(`تبقى ${daysRemaining} يوم على البكالوريا. حان الوقت لبدء المراجعة المركزة للمواد.`);
+                }
+            }
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            
+            // إضافة رسالة المساعد
+            const assistantMessage = document.createElement('div');
+            assistantMessage.className = 'assistant-message';
+            assistantMessage.style.marginBottom = '10px';
+            assistantMessage.style.padding = '10px';
+            assistantMessage.style.backgroundColor = 'rgba(76, 201, 240, 0.1)';
+            assistantMessage.style.borderRadius = 'var(--border-radius)';
+            assistantMessage.innerHTML = `<p><strong>المساعد:</strong> ${randomMessage}</p>`;
+            messagesContainer.appendChild(assistantMessage);
+            
+            // التمرير إلى الأسفل
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // إضافة إشعار
+            addNotification(`المساعد: ${randomMessage}`, 'info');
+        }
+
+        // إضافة إشعار
+        function addNotification(message, type = 'info') {
+            const newNotification = {
+                id: Date.now(),
+                message,
+                type,
+                date: new Date().toISOString(),
+                read: false
+            };
+            
+            appData.notifications.push(newNotification);
+            updateNotificationsBadge();
+            saveData();
+        }
+
+        // عرض الإشعارات
+        function renderNotifications() {
+            const container = document.getElementById('notifications-list');
+            
+            if (appData.notifications.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">لا توجد إشعارات حالياً.</p>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            appData.notifications.slice().reverse().forEach(notification => {
+                const notificationElement = document.createElement('div');
+                notificationElement.className = 'task-item';
+                
+                let icon = 'info-circle';
+                if (notification.type === 'success') icon = 'check-circle';
+                else if (notification.type === 'warning') icon = 'exclamation-circle';
+                else if (notification.type === 'error') icon = 'times-circle';
+                
+                const date = new Date(notification.date);
+                const timeStr = date.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+                const dateStr = date.toLocaleDateString('ar-EG');
+                
+                notificationElement.innerHTML = `
+                    <div style="margin-left: 10px;">
+                        <i class="fas fa-${icon} ${notification.type === 'success' ? 'success' : notification.type === 'warning' ? 'warning' : notification.type === 'error' ? 'error' : 'info'}"></i>
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">${notification.message}</div>
+                        <div class="task-meta">
+                            <span>${timeStr}</span>
+                            <span>${dateStr}</span>
+                        </div>
+                    </div>
+                    <div class="task-actions">
+                        <button class="task-btn delete-notification" data-id="${notification.id}">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(notificationElement);
+                
+                // إضافة مستمع حدث للحذف
+                const deleteBtn = notificationElement.querySelector('.delete-notification');
+                deleteBtn.addEventListener('click', function() {
+                    deleteNotification(notification.id);
+                });
+            });
+        }
+
+        // حذف إشعار
+        function deleteNotification(notificationId) {
+            appData.notifications = appData.notifications.filter(n => n.id !== notificationId);
+            renderNotifications();
+            updateNotificationsBadge();
+            saveData();
+        }
+
+        // تحديث شارة الإشعارات
+        function updateNotificationsBadge() {
+            const unreadCount = appData.notifications.filter(n => !n.read).length;
+            const badge = document.querySelector('.notification-badge');
+            if (badge) {
+                badge.textContent = unreadCount;
+                badge.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+            }
+        }
+
+        // تحديث الملاحظات
+        function updateNotes() {
+            const notesContainer = document.getElementById('dynamic-notes');
+            
+            if (appData.notes.length === 0) {
+                // إذا لم تكن هناك ملاحظات، نعرض ملاحظات افتراضية
+                const today = new Date();
+                const examDate = appData.examDate ? new Date(appData.examDate) : null;
+                
+                let noteContent = '';
+                
+                if (!examDate) {
+                    noteContent = '<p>مرحباً! ابدأ بتحديد تاريخ البكالوريا في الإعدادات وإضافة مهامك الأولى.</p>';
+                } else if (appData.tasks.length === 0) {
+                    noteContent = '<p>لا توجد مهام لهذا اليوم. أضف مهمة جديدة لتبدأ!</p>';
+                } else {
+                    const completedTasks = appData.tasks.filter(task => task.completed).length;
+                    const totalTasks = appData.tasks.length;
+                    const progressPercent = Math.round((completedTasks / totalTasks) * 100);
+                    
+                    noteContent = `
+                        <p>إنجاز اليوم: ${completedTasks} من ${totalTasks} مهمة مكتملة (${progressPercent}%)</p>
+                        <p>استمر في العمل الجاد! كل مهمة تكملها تقربك من النجاح.</p>
+                    `;
+                }
+                
+                notesContainer.innerHTML = noteContent;
+            } else {
+                // عرض الملاحظات الحقيقية
+                notesContainer.innerHTML = '';
+                appData.notes.forEach(note => {
+                    const noteElement = document.createElement('div');
+                    noteElement.className = 'task-item';
+                    noteElement.innerHTML = `
+                        <div class="task-content">
+                            <div class="task-title">${note.title}</div>
+                            <div class="task-meta">
+                                <span>${new Date(note.date).toLocaleDateString('ar-EG')}</span>
+                            </div>
+                        </div>
+                    `;
+                    notesContainer.appendChild(noteElement);
+                });
+            }
+        }
+
+        // عرض إشعار
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = 'info-circle';
+            if (type === 'success') icon = 'check-circle';
+            else if (type === 'warning') icon = 'exclamation-circle';
+            else if (type === 'error') icon = 'times-circle';
+            
+            toast.innerHTML = `
+                <i class="fas fa-${icon} toast-icon"></i>
+                <div class="toast-content">
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close">&times;</button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // إضافة مستمع حدث للإغلاق
+            toast.querySelector('.toast-close').addEventListener('click', function() {
+                toast.remove();
+            });
+            
+            // إزالة الإشعار تلقائياً بعد المدة المحددة
+            const duration = appData.settings.notificationDuration * 1000;
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, duration);
+        }
+
+        // إعداد المؤقت
+        function setupTimer() {
+            const timerDisplay = document.getElementById('timer-display');
+            const startBtn = document.getElementById('start-timer');
+            const pauseBtn = document.getElementById('pause-timer');
+            const resetBtn = document.getElementById('reset-timer');
+            const presetBtns = document.querySelectorAll('.preset-btn');
+            const customTimeBtn = document.getElementById('set-custom-time');
+            const customMinutesInput = document.getElementById('custom-minutes');
+            
+            // تحديث عرض المؤقت
+            function updateTimerDisplay() {
+                const minutes = String(appData.timer.minutes).padStart(2, '0');
+                const seconds = String(appData.timer.seconds).padStart(2, '0');
+                timerDisplay.textContent = `${minutes}:${seconds}`;
+            }
+            
+            // بدء المؤقت
+            startBtn.addEventListener('click', function() {
+                if (!appData.timer.isRunning) {
+                    appData.timer.isRunning = true;
+                    appData.timer.interval = setInterval(function() {
+                        if (appData.timer.seconds > 0) {
+                            appData.timer.seconds--;
+                        } else if (appData.timer.minutes > 0) {
+                            appData.timer.minutes--;
+                            appData.timer.seconds = 59;
+                        } else {
+                            // انتهى الوقت
+                            clearInterval(appData.timer.interval);
+                            appData.timer.isRunning = false;
+                            showToast('انتهى وقت الجلسة!', 'success');
+                            addNotification('انتهت جلسة الدراسة', 'info');
+                        }
+                        updateTimerDisplay();
+                    }, 1000);
+                }
+            });
+            
+            // إيقاف المؤقت
+            pauseBtn.addEventListener('click', function() {
+                if (appData.timer.isRunning) {
+                    clearInterval(appData.timer.interval);
+                    appData.timer.isRunning = false;
+                }
+            });
+            
+            // إعادة تعيين المؤقت
+            resetBtn.addEventListener('click', function() {
+                clearInterval(appData.timer.interval);
+                appData.timer.isRunning = false;
+                appData.timer.minutes = 25;
+                appData.timer.seconds = 0;
+                updateTimerDisplay();
+            });
+            
+            // الأزرار المسبقة الإعداد
+            presetBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const minutes = parseInt(this.getAttribute('data-minutes'));
+                    clearInterval(appData.timer.interval);
+                    appData.timer.isRunning = false;
+                    appData.timer.minutes = minutes;
+                    appData.timer.seconds = 0;
+                    updateTimerDisplay();
+                });
+            });
+            
+            // تخصيص الوقت
+            customTimeBtn.addEventListener('click', function() {
+                const minutes = parseInt(customMinutesInput.value);
+                if (minutes && minutes > 0 && minutes <= 180) {
+                    clearInterval(appData.timer.interval);
+                    appData.timer.isRunning = false;
+                    appData.timer.minutes = minutes;
+                    appData.timer.seconds = 0;
+                    updateTimerDisplay();
+                    showToast(`تم تعيين المؤقت لـ ${minutes} دقيقة`, 'success');
+                } else {
+                    showToast('يرجى إدخال عدد دقائق صحيح بين 1 و 180', 'warning');
+                }
+            });
+            
+            // التهيئة الأولية
+            updateTimerDisplay();
+        }
+
+        // عرض الصفحة
+        function showPage(pageId) {
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // إظهار الصفحة المطلوبة
+            document.getElementById(pageId).classList.add('active');
+            
+            // تحديث الروابط النشطة
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`.nav-links a[data-page="${pageId}"]`).classList.add('active');
+            
+            // تحديث عنوان الصفحة
+            const pageTitles = {
+                'dashboard': 'لوحة التحكم',
+                'daily-tasks': 'المهام اليومية',
+                'monthly-goals': 'الأهداف الشهرية',
+                'calendar': 'رزنامة الدراسة',
+                'timer': 'مؤقت الدراسة',
+                'notifications': 'الإشعارات',
+                'assistant': 'المساعد الذكي',
+                'analytics': 'تقارير الأداء',
+                'profile': 'الملف الشخصي',
+                'settings': 'الإعدادات'
+            };
+            
+            document.getElementById('page-title').textContent = pageTitles[pageId] || 'الصفحة';
+            
+            // تحديث الصفحة الحالية
+            appData.currentPage = pageId;
+            
+            // إذا كانت صفحة التقويم، قم بتحديثها
+            if (pageId === 'calendar') {
+                setupCalendar();
+            }
+            
+            // إذا كانت صفحة التقارير، قم بتحديثها
+            if (pageId === 'analytics') {
+                setupCharts();
+            }
+            
+            // إذا كانت صفحة الإشعارات، قم بتحديثها
+            if (pageId === 'notifications') {
+                renderNotifications();
+            }
+        }
+
+        // عرض المهام المكتملة
+        function showCompletedTasks() {
+            const modal = document.getElementById('completed-tasks-modal');
+            const list = document.getElementById('completed-tasks-list');
+            
+            list.innerHTML = '';
+            
+            if (appData.completedTasks.length === 0) {
+                list.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">لا توجد مهام مكتملة سابقة.</p>';
+            } else {
+                appData.completedTasks.slice().reverse().forEach(task => {
+                    const taskElement = document.createElement('div');
+                    taskElement.className = 'task-item';
+                    taskElement.innerHTML = `
+                        <div class="task-content">
+                            <div class="task-title">${task.title}</div>
+                            <div class="task-meta">
+                                <span class="task-subject">${task.subject}</span>
+                                <span>${task.type}</span>
+                                <span>${task.duration} دقيقة</span>
+                                <span>${new Date(task.createdAt).toLocaleDateString('ar-EG')}</span>
+                            </div>
+                        </div>
+                    `;
+                    list.appendChild(taskElement);
+                });
+            }
+            
+            modal.classList.add('active');
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // التنقل بين الصفحات
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+
+            // فتح صفحة الإشعارات عند النقر على زر الإشعارات
+            document.getElementById('notifications-btn').addEventListener('click', function() {
+                showPage('notifications');
+            });
+
+            // فتح صفحة الملف الشخصي عند النقر على الصورة
+            document.getElementById('user-profile').addEventListener('click', function() {
+                showPage('profile');
+            });
+
+            // تبديل الوضع الليلي
+            document.getElementById('theme-toggle').addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const icon = this.querySelector('i');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+                saveData();
+            });
+
+            // فتح نافذة إضافة مهمة
+            document.getElementById('add-task-btn').addEventListener('click', function() {
+                document.getElementById('add-task-modal').classList.add('active');
+            });
+
+            document.getElementById('add-daily-task-btn').addEventListener('click', function() {
+                document.getElementById('add-task-modal').classList.add('active');
+            });
+
+            // فتح نافذة إضافة هدف شهري
+            document.getElementById('add-monthly-goal-btn').addEventListener('click', function() {
+                document.getElementById('add-monthly-goal-modal').classList.add('active');
+            });
+
+            // إغلاق نوافذ إضافة المهام
+            document.getElementById('close-task-modal').addEventListener('click', function() {
+                document.getElementById('add-task-modal').classList.remove('active');
+            });
+
+            document.getElementById('cancel-task').addEventListener('click', function() {
+                document.getElementById('add-task-modal').classList.remove('active');
+            });
+
+            // إغلاق نوافذ إضافة الأهداف الشهرية
+            document.getElementById('close-monthly-goal-modal').addEventListener('click', function() {
+                document.getElementById('add-monthly-goal-modal').classList.remove('active');
+            });
+
+            document.getElementById('cancel-monthly-goal').addEventListener('click', function() {
+                document.getElementById('add-monthly-goal-modal').classList.remove('active');
+            });
+
+            // حفظ المهمة الجديدة
+            document.getElementById('save-task').addEventListener('click', function() {
+                const title = document.getElementById('task-title').value;
+                const subject = document.getElementById('task-subject').value;
+                const type = document.getElementById('task-type').value;
+                const duration = parseInt(document.getElementById('task-duration').value);
+                const priority = document.getElementById('task-priority').value;
+                
+                if (title && subject && type && duration && priority) {
+                    addTask({ title, subject, type, duration, priority });
+                    document.getElementById('add-task-modal').classList.remove('active');
+                    document.getElementById('task-form').reset();
+                } else {
+                    showToast('يرجى ملء جميع الحقول', 'warning');
+                }
+            });
+
+            // حفظ الهدف الشهري الجديد
+            document.getElementById('save-monthly-goal').addEventListener('click', function() {
+                const subject = document.getElementById('goal-subject').value;
+                const hours = parseInt(document.getElementById('goal-hours').value);
+                const tasks = parseInt(document.getElementById('goal-tasks').value);
+                
+                if (subject && hours && tasks) {
+                    addMonthlyGoal({ subject, hours, tasks });
+                    document.getElementById('add-monthly-goal-modal').classList.remove('active');
+                    document.getElementById('monthly-goal-form').reset();
+                } else {
+                    showToast('يرجى ملء جميع الحقول', 'warning');
+                }
+            });
+
+            // فتح الإعدادات عند النقر على عداد البكالوريا
+            document.getElementById('countdown-card').addEventListener('click', function() {
+                showPage('settings');
+            });
+
+            // حفظ الإعدادات
+            document.getElementById('save-settings').addEventListener('click', function() {
+                const userName = document.getElementById('user-name').value;
+                const examDate = document.getElementById('exam-date-setting').value;
+                const notificationDuration = document.getElementById('notification-duration').value;
+                const fontFamily = document.getElementById('font-family').value;
+                const fontSize = document.getElementById('font-size').value;
+                const themeColor = document.getElementById('theme-color').value;
+                
+                if (userName) {
+                    appData.userName = userName;
+                    document.querySelector('.user-avatar').textContent = userName.charAt(0);
+                    document.querySelector('.user-profile span').textContent = userName;
+                    document.getElementById('profile-user-name').textContent = userName;
+                }
+                
+                if (examDate) {
+                    appData.examDate = examDate;
+                    updateCountdown();
+                }
+                
+                appData.settings.notificationDuration = parseInt(notificationDuration);
+                appData.settings.fontFamily = fontFamily;
+                appData.settings.fontSize = fontSize;
+                appData.settings.themeColor = themeColor;
+                
+                applySettings();
+                showToast('تم حفظ الإعدادات', 'success');
+                saveData();
+            });
+
+            // تحميل صورة الخلفية
+            document.getElementById('background-image').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        appData.settings.bgImage = event.target.result;
+                        applySettings();
+                        saveData();
+                        showToast('تم تغيير خلفية الصفحة', 'success');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // مسح جميع البيانات
+            document.getElementById('reset-data').addEventListener('click', function() {
+                if (confirm('هل أنت متأكد من رغبتك في مسح جميع البيانات؟ لا يمكن التراجع عن هذا الإجراء.')) {
+                    localStorage.removeItem('bacAssistantData');
+                    location.reload();
+                }
+            });
+
+            // مسح الإشعارات
+            document.getElementById('clear-notifications').addEventListener('click', function() {
+                appData.notifications = [];
+                renderNotifications();
+                updateNotificationsBadge();
+                saveData();
+                showToast('تم مسح جميع الإشعارات', 'success');
+            });
+
+            // عرض المهام المكتملة
+            document.getElementById('view-completed-tasks').addEventListener('click', function() {
+                showCompletedTasks();
+            });
+
+            // إغلاق نافذة المهام المكتملة
+            document.getElementById('close-completed-tasks-modal').addEventListener('click', function() {
+                document.getElementById('completed-tasks-modal').classList.remove('active');
+            });
+
+            document.getElementById('close-completed-tasks').addEventListener('click', function() {
+                document.getElementById('completed-tasks-modal').classList.remove('active');
+            });
+        }
+    </script>
+</body>
+</html>
